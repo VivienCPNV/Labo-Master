@@ -14,9 +14,9 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] What type of application is it ?
-* [ ] Which database engine is used ?
-* [ ] Do we need to install the package manager _MAVEN_ before building the project ?
+* [x] What type of application is it ?
+* [x] Which database engine is used ?
+* [x] Do we need to install the package manager _MAVEN_ before building the project ?
 
 <!---->
 
@@ -24,45 +24,48 @@ git clone https://github.com/spring-projects/spring-petclinic.git
 
 <!---->
 
-* [ ] Which version of Java should compatible with the code provided ?
+* [x] Which version of Java should compatible with the code provided ?
 
 ## Setup Java components
 
 ### Check your current java installation
 
-* [ ] Where is java installed ?
+* [x] Where is java installed ?
 
 ```
 [INPUT]
-//TODO
+echo %JAVA_HOME%
 
 [OUTPUT]
-//TODO
+C:\Program Files\Java\jdk1.8.0_211
 ```
 
-* [ ] Which current compiler is installed (JDK) ?
+* [x] Which current compiler is installed (JDK) ?
 
 ```
 [INPUT]
-//TODO
+javac -version
 
 [OUTPUT]
-//TODO
+javac 1.8.0_211
 ```
 
-* [ ] Which current runtime is installed (JRE) ?
+* [x] Which current runtime is installed (JRE) ?
 
 ```
 [INPUT]
-//TODO
+java -version
 
 [OUTPUT]
-//TODO
+java version "1.8.0_281"
+Java(TM) SE Runtime Environment (build 1.8.0_281-b09)
+Java HotSpot(TM) 64-Bit Server VM (build 25.281-b09, mixed mode)
 ```
 
-* [ ] Do we need to install the java virtual machine (JVM) ?
+* [x] Do we need to install the java virtual machine (JVM) ?
 
 ```
+No
 ```
 
 ### Install the Open JDK
