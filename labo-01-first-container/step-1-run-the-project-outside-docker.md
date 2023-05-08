@@ -95,20 +95,20 @@ No
 
 ```
 [INPUT]
-//TODO
+certutil -hashfile openjdk-20.0.1_windows-x64_bin.zip SHA256
 
 [OUTPUT]
-//TODO
+31ca4a8cbdea1da7fb441194e756dd1adbedfc05bd1135a1ecc46b4288ea8942
 ```
 
 #### Unzip jdk archive
 
 ```
 [INPUT]
-//TODO
+unzip openjdk-20.0.1_windows-x64_bin.zip
 
 [OUTPUT]
-//TODO
+jdk-20.0.1
 ```
 
 <figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption><p>Powershell output during unzip process</p></figcaption></figure>
@@ -117,7 +117,7 @@ No
 
 ```
 [INPUT]
-//TODO
+move jdk-20.0.1 "C:\Program Files\"
 
 [OUTPUT]
 //TODO
@@ -133,7 +133,7 @@ No
 
 ```
 [INPUT]
-//TODO
+set JAVA_HOME=C:\Program Files\jdk-20.0.1
 
 [OUTPUT]
 //TODO
@@ -149,7 +149,7 @@ echo %PATH% > path.back
 
 ```
 [INPUT]
-//TODO
+set PATH=%JAVA_HOME%\bin;%PATH%
 
 [OUTPUT]
 //TODO
@@ -157,22 +157,23 @@ echo %PATH% > path.back
 
 * [ ] Check the variables settings
 
-```
+```f
 [INPUT]
-//TODO
+echo %PATH%
 
 [OUTPUT]
-//TODO
+C:\Program Files\jdk-20.0.1\bin;C:\Python311\Scripts\;C:\Python311\;C:\Program Files\ImageMagick-7.1.1-Q16-HDRI;C:\Program Files\Ruby31-x64\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\MariaDB 10.10\bin;C:\tools\php81;C:\Program Files\Microsoft VS Code\bin;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Amazon\AWSCLIV2\;C:\Program Files\nodejs\;C:\tools\php82;C:\Program Files\Git\cmd;C:\Program Files\GitHub CLI\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Java\jdk1.8.0_211\bin;;C:\Program Files\Docker\Docker\resources\bin;f
 ```
 
 ## Build and test the project
 
 ```
 [INPUT]
-//TODO
+mvnw package
+java -jar target/*.jar
 
 [OUTPUT]
-//TODO
+SUCCESS
 ```
 
 
