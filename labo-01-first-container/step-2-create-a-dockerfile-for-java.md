@@ -18,7 +18,7 @@ echo > Dockerfile
 * Using your IDE, add the following contents to the Dockerfile:
 
 ```
-# synthax=docker/dockerfile:1
+# syntax=docker/dockerfile:1
 
 FROM eclipse-temurin:17-jdk-jammy
 ```
@@ -27,7 +27,7 @@ FROM eclipse-temurin:17-jdk-jammy
 
 <!---->
 
-* [Official documentation - Synthax directive](https://docs.docker.com/build/dockerfile/frontend/)
+* [Official documentation - Syntax directive](https://docs.docker.com/build/dockerfile/frontend/)
 
 ```
 The synthax directive allows us to specify our own build instructions if we want.
@@ -109,8 +109,11 @@ spring:dev
 
 Result Expected:
 
-```
-docker build --tag <yourTag>
+```docker
+[INPUT]
+docker build --tag <repository:tag>
+
+[OUTPUT]
 Sending build context to Docker daemon   9.92MB
 Step 1/7 : FROM eclipse-temurin:17-jdk-jammy
  ---> 56c7bc12ee6d
@@ -131,8 +134,8 @@ Step 6/7 : COPY src ./src
 Step 7/7 : CMD ["./mvnw", "spring-boot:run"]
  ---> Using cache
  ---> 910e5f0c8b1f
-Successfully built 910e5f0c8b1f
-Successfully tagged java-docker:dev
+Successfully built <yourImageId>
+Successfully tagged <yourRepository:yourTag>
 SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended to dou
 ble check and reset permissions for sensitive files and directories.
 
@@ -175,17 +178,18 @@ docker --build spring:dev .\
  => => naming to docker.io/library/spring:dev
 ```
 
-### View local images
+## View local images
 
 * [x] Using the "docker images" command, observe your images, and the associates tag.
 
 Result expected:\
 
+### Result expected:
 
 ```
 docker images
 REPOSITORY        TAG            IMAGE ID       CREATED          SIZE
-java-docker       <yourTag>      910e5f0c8b1f   11 minutes ago   606MB
+<yourRepository>  <yourTag>      910e5f0c8b1f   11 minutes ago   606MB
 eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   3 days ago       456MB
 ```
 
@@ -197,3 +201,53 @@ docker images
 REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
 spring       dev       1ffb1e397399   56 seconds ago   606MB
 ```
+
+## Using tags
+
+* [ ] Using the appropriate command, try to obtain this situation on your local machine:
+
+```
+[INPUT]
+docker images
+
+[OUTPUT]
+REPOSITORY        TAG            IMAGE ID       CREATED       SIZE
+petclinic         dev            323bdb488603   2 hours ago   606MB
+petclinic         int            323bdb488603   2 hours ago   606MB
+petclinic         prod           323bdb488603   2 hours ago   606MB
+eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   9 days ago    456MB
+```
+
+* [ ] Is it a good idea to use tags like this to create different stages (dev, int, prod) ?
+
+> The Docker tag helps maintain the build version to push the image to the Docker Hub**. The Docker Hub allows us to group images together based on name and tag.** Multiple Docker tags can point to a particular image. Basically, as in Git, Docker tags are similar to a specific commit. Docker tags are just an alias for an image ID.
+>
+> The tag's name must be an ASCII character string and may include lowercase and uppercase letters, digits, underscores, periods, and dashes. In addition, the tag names must not begin with a period or a dash, and they can only contain 128 characters.
+>
+> Source : [baeldung.com](https://www.baeldung.com/ops/docker-tag)
+
+```
+//TODO
+Explain
+```
+
+* [ ] Using the appropriate command, update your local images and tags like this:
+
+```
+[INPUT]
+docker images
+
+[OUTPUT]
+REPOSITORY          TAG              IMAGE ID       CREATED        SIZE
+eclipse-petclinic   version1.0.dev   323bdb488603   18 hours ago   606MB
+eclipse-temurin     17-jdk-jammy     56c7bc12ee6d   10 days ago    456MB
+```
+
+```
+[INPUT]
+//TODO
+
+[OUTPUT]
+//TODO
+```
+
