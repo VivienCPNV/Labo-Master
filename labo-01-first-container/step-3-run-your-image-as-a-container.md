@@ -4,8 +4,8 @@
 
 <!---->
 
-* [ ] Run your "petclinic" docker based on the image created in the previous step.
-  * [ ] We should access to your application using the http standard port.
+* [x] Run your "petclinic" docker based on the image created in the previous step.
+  * [x] We should access to your application using the http standard port.
 
 Result expected:
 
@@ -25,28 +25,29 @@ curl --request GET ^
 //disregard the message curl: (6) Could not resolve host: application
 ```
 
-* [ ] List all Dockers currently running on your local environment. Observe the port forwarding for your "petclinic" docker.
+* [x] List all Dockers currently running on your local environment. Observe the port forwarding for your "petclinic" docker.
 
 ```
 [INPUT]
-//TODO
+docker container list
 
 [OUTPUT]
-//TODO
+CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS     NAMES
+84d517f132ec   spring:dev   "./mvnw spring-boot:…"   7 minutes ago   Up 7 minutes             nostalgic_hermann
 
 ```
 
-* [ ] Stop your "petclinic" docker
+* [x] Stop your "petclinic" docker
 
 ```
 [INPUT]
-//TODO
+docker container stop festive_hermann
 
 [OUTPUT]
-//TODO
+festive_hermann
 ```
 
-* [ ] Rename your docker as "petclinic-app"
+* [x] Rename your docker as "petclinic-app"
 
 <!---->
 
@@ -54,23 +55,23 @@ curl --request GET ^
 
 ```
 [INPUT]
-//TODO
+docker container rename festive_hermann petclinic-app
 
 [OUTPUT]
-//TODO
+
 ```
 
-* [ ] Restart your docker using the new name
+* [x] Restart your docker using the new name
 
 ```
 [INPUT]
-//TODO
+docker container start petclinic-app
 
 [OUTPUT]
-//TODO
+petclinic-app
 ```
 
-* [ ] Display all running dockers with this output format
+* [x] Display all running dockers with this output format
 
 <!---->
 
@@ -85,9 +86,10 @@ eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.   petclinic-server
 
 ```
 [INPUT]
-//TODO
+docker container list --format "table {{.Image}}\t{{.Ports}}\t{{.Names}}"
 
 [OUTPUT]
-//TODO
+IMAGE        PORTS                  NAMES
+spring:dev   0.0.0.0:80->8080/tcp   petclinic-app
 ```
 
