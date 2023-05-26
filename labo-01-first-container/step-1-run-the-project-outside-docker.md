@@ -65,7 +65,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.281-b09, mixed mode)
 * [x] Do we need to install the java virtual machine (JVM) ?
 
 ```
-No
+No, the JVM is bundled with the JRE
 ```
 
 ### Install the Open JDK
