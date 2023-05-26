@@ -105,7 +105,7 @@ This [doc may also help you with tag samples](https://docs.docker.com/engine/ref
 spring:dev
 ```
 
-* [ ] Build your first Docker image
+* [x] Build your first Docker image
 
 Result Expected:
 
@@ -204,7 +204,7 @@ spring       dev       1ffb1e397399   56 seconds ago   606MB
 
 ## Using tags
 
-* [ ] Using the appropriate command, try to obtain this situation on your local machine:
+* [x] Using the appropriate command, try to obtain this situation on your local machine:
 
 ```
 [INPUT]
@@ -218,7 +218,20 @@ petclinic         prod           323bdb488603   2 hours ago   606MB
 eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   9 days ago    456MB
 ```
 
-* [ ] Is it a good idea to use tags like this to create different stages (dev, int, prod) ?
+```
+[INPUT]
+docker tag spring:dev spring:int
+docker tag spring:dev spring:prod
+docker images
+
+[OUTPUT]
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+spring       dev       96e24021a3e2   10 days ago   607MB
+spring       int       96e24021a3e2   10 days ago   607MB
+spring       prod      96e24021a3e2   10 days ago   607MB
+```
+
+* [x] Is it a good idea to use tags like this to create different stages (dev, int, prod) ?
 
 > The Docker tag helps maintain the build version to push the image to the Docker Hub**. The Docker Hub allows us to group images together based on name and tag.** Multiple Docker tags can point to a particular image. Basically, as in Git, Docker tags are similar to a specific commit. Docker tags are just an alias for an image ID.
 >
@@ -227,11 +240,13 @@ eclipse-temurin   17-jdk-jammy   56c7bc12ee6d   9 days ago    456MB
 > Source : [baeldung.com](https://www.baeldung.com/ops/docker-tag)
 
 ```
-//TODO
-Explain
+NO ! Docker tags are just shortcuts to an image. Making a prod tag or an int tag doesn't make a copy of the image.
+It just creates a link that is more human readable than an ID like: 96e24021a3e2.
+If we want to itterate on an image, we need to define the base image first and then use it as a layer in our new image, like this:
+FROM spring:dev
 ```
 
-* [ ] Using the appropriate command, update your local images and tags like this:
+* [x] Using the appropriate command, update your local images and tags like this:
 
 ```
 [INPUT]
@@ -245,9 +260,14 @@ eclipse-temurin     17-jdk-jammy     56c7bc12ee6d   10 days ago    456MB
 
 ```
 [INPUT]
-//TODO
+docker tag spring:dev eclipse-petclinic:version1.0.dev
+docker rmi spring:dev
+docker rmi spring:int
+docker rmi spring:prod
+docker images
 
 [OUTPUT]
-//TODO
+REPOSITORY          TAG              IMAGE ID       CREATED       SIZE
+eclipse-petclinic   version1.0.dev   96e24021a3e2   11 days ago   607MB
 ```
 
