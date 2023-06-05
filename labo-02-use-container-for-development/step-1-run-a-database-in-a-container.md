@@ -12,31 +12,31 @@ Take the time to become familiar with the concept of volumes before carrying out
 
 Let's create both volumes, one for the data, and another one for the db config.
 
-* [ ] Create one volume for the MySQL data (tag name : mysql_data)
+* [x] Create one volume for the MySQL data (tag name : mysql_data)
 
 ```
 [INPUT]
 docker volume create mysql_data
 
 [OUTPUT]
-//TODO
+mysql_data
 ```
 
-* [ ] Create a second volume for the MySQL configuration (tag name : mysql_config)
+* [x] Create a second volume for the MySQL configuration (tag name : mysql_config)
 
 ```
 [INPUT]
-//TODO create mysql_config
+docker volume create mysql_config
 
 [OUTPUT]
-//TODO
+mysql_config
 ```
 
-* [ ] List the volumes
+* [x] List the volumes
 
 ```
 [INPUT]
-//TOOD  
+docker volume list
 
 [OUTPUT]
 //Expected result
@@ -49,21 +49,21 @@ local     mysql_data
 
 Let's create a user-defined bridge network enabling our application and our database to talk to each other.
 
-* [ ] Create the network
+* [x] Create the network
 
 ```
 [INPUT]
-//TODO create mysqlnet
+docker network create mysqlnet
 
 [OUTPUT]
-//TODO
+301c00b06ade34c9d91d908325421440b7b696556e81260437aae87181a35428
 ```
 
-* [ ] List the networks
+* [x] List the networks
 
 ```
 [INPUT]
-//TODO list docker network
+docker network list
 
 [OUTPUT]
 //TODO Expected result
@@ -88,7 +88,7 @@ Check your host ports and do no try to forward one of them that is already is us
 
 ```
 [INPUT]
-//TODO Run docker
+docker run -p 3316:3306 -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -v msyql_data:/var/lib/mysql -v mysql_config:/etc/mysql --network mysqlnet --name mysqlserver mysql:8.0
 
 [OUTPUT]
 Unable to find image 'mysql:8.0' locally
@@ -108,11 +108,11 @@ a11a06843fd5: Waiting
 2b7afc93c37d715c6d592de78173386903e123d0c7065ac34329ab81e9fcefd8
 ```
 
-* [ ] List all containers (all states)
+* [x] List all containers (all states)
 
 ```
 [INPUT]
-//TODO
+docker container list
 
 [OUTPUT]
 //TODO Result expected
@@ -125,19 +125,21 @@ eclipse-petclinic:version1.0.dev   0.0.0.0:80->8080/tcp.                petclini
 
 Currently H2 is used on our Petclinic Container. We need to switch on MySQL.
 
-* [ ] Add this command to your Dockerfile, in the right place.
+* [x] Add this command to your Dockerfile, in the right place.
 
 ```
 CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql"]
 ```
 
-* [ ] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
+* [x] If you run both docker, the application server will not able to talk with the dbserver... any idea why ?
 
 ```
-//TODO
+No, they need to be in the same docker network to talk to each other.
+To do this, we need to connect them using the docker network connect command:
+docker network connect mysqlnet petclinic-app
 ```
 
-* [ ] Let's build our image
+* [x] Let's build our image
 
 ```
 [INPUT]
@@ -153,11 +155,11 @@ eclipse-temurin     17-jdk-jammy     56c7bc12ee6d   13 days ago     456MB
 mysql               8.0              8189e588b0e8   4 weeks ago     564MB
 ```
 
-* [ ] Test your application
+* [x] Test your application
 
 ```
 [INPUT]
-//TODO Start your docker
+docker run --network mysqlnet --name petclinic-app-mysql -e MYSQL_URL=jdbc:mysql://mysqlserver/petclinic -p 80:8080 eclipse-petclinic:version1.1.dev
 
 
 [INPUT]
@@ -167,5 +169,5 @@ curl --request GET ^
     --header 'content-type: application/json'
 
 [OUTPUT]
-//Result Expected
+{"vetList":[{"id":1,"firstName":"James","lastName":"Carter","specialties":[],"nrOfSpecialties":0,"new":false},{"id":2,"firstName":"Helen","lastName":"Leary","specialties":[{"id":1,"name":"radiology","new":false}],"nrOfSpecialties":1,"new":false},{"id":3,"firstName":"Linda","lastName":"Douglas","specialties":[{"id":3,"name":"dentistry","new":false},{"id":2,"name":"surgery","new":false}],"nrOfSpecialties":2,"new":false},{"id":4,"firstName":"Rafael","lastName":"Ortega","specialties":[{"id":2,"name":"surgery","new":false}],"nrOfSpecialties":1,"new":false},{"id":5,"firstName":"Henry","lastName":"Stevens","specialties":[{"id":1,"name":"radiology","new":false}],"nrOfSpecialties":1,"new":false},{"id":6,"firstName":"Sharon","lastName":"Jenkins","specialties":[],"nrOfSpecialties":0,"new":false}]}
 ```
